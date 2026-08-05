@@ -1,0 +1,63 @@
+<h1>📅 Mon Planning</h1>
+<p id="dateHeure"></p>
+
+<div class="carte">
+  <button onclick="afficherJour()">
+    📆 Vue Journée
+  </button>
+  <button onclick="afficherSemaine()">
+    🗓️ Vue Semaine
+  </button>
+</div>
+
+<div class="carte">
+  <input type="text" id="tache" 
+  placeholder="Ajouter une tâche..." />
+  <select id="jourChoisi">
+    <option value="Lundi">Lundi</option>
+    <option value="Mardi">Mardi</option>
+    <option value="Mercredi">Mercredi</option>
+    <option value="Jeudi">Jeudi</option>
+    <option value="Vendredi">Vendredi</option>
+    <option value="Samedi">Samedi</option>
+    <option value="Dimanche">Dimanche</option>
+  </select>
+  <button onclick="ajouterTache()">
+    ➕ Ajouter
+  </button>
+</div>
+
+<div class="carte" id="carte-Lundi">
+  <h3>📌 Lundi</h3>
+  <ul id="listeLundi"></ul>
+</div>
+
+<div class="carte" id="carte-Mardi">
+  <h3>📌 Mardi</h3>
+  <ul id="listeMardi"></ul>
+</div>
+
+<div class="carte" id="carte-Mercredi">
+  <h3>📌 Mercredi</h3>
+  <ul id="listeMercredi"></ul>
+</div>
+
+<div class="carte" id="carte-Jeudi">
+  <h3>📌 Jeudi</h3>
+  <ul id="listeJeudi"></ul>
+</div>
+
+<div class="carte" id="carte-Vendredi">
+  <h3>📌 Vendredi</h3>
+  <ul id="listeVendredi"></ul>
+</div>
+
+<div class="carte" id="carte-Samedi">
+  <h3>📌 Samedi</h3>
+  <ul id="listeSamedi"></ul>
+</div>
+
+<div class="carte" id="carte-Dimanche">
+  <h3>📌 Dimanche</h3>
+  <ul id="listeDimanche"></ul>
+</div>
