@@ -1,0 +1,92 @@
+body {
+  background-color: #0a0a0a;
+  color: white;
+  text-align: center;
+  padding: 30px;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  color: purple;
+  font-size: 32px;
+}
+
+h2 {
+  color: orange;
+  margin-top: 20px;
+}
+
+p {
+  color: #cccccc;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  color: #cccccc;
+  margin: 8px 0;
+}
+
+button {
+  background-color: purple;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-size: 16px;
+  margin-top: 20px;
+  cursor: pointer;
+}img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 3px solid purple;
+  margin-bottom: 15px;
+}a {
+  color: orange;
+  text-decoration: none;
+  font-size: 18px;
+  display: block;
+  margin: 10px 0;
+}
+
+a:hover {
+  color: purple;
+}.carte {
+  background-color: #1a1a1a;
+  border: 1px solid purple;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 15px auto;
+  max-width: 400px;
+}
+
+.carte h3 {
+  color: orange;
+  margin-bottom: 10px;
+}button {
+  margin: 10px;
+}html::before {
+  content: 'CodePen ♥ The Web';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  margin: auto;
+  width: fit-content;
+  height: fit-content;
+  font-family: monospace;
+  opacity: 0.6;
+  background: rebeccapurple;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+}li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 5px;
+  border-bottom: 1px solid #333;
+}
