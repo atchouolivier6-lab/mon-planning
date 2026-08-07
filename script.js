@@ -99,37 +99,87 @@ function afficherSemaine() {
 
 charger();
 function programmerRappel(texte, heure) {
+function jouerSon(contexte) {
+  let oscillateur = contexte.createOscillator();
+  let gain = contexte.createGain();
+  oscillateur.connect(gain);
+  gain.connect(contexte.destination);
+  oscillateur.frequency.value = 880;
+  oscillateur.type = "sine";
+  gain.gain.setValueAtTime(0.8, contexte.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, 
+  contexte.currentTime + 0.5);
+  oscillateur.start(contexte.currentTime);
+  oscillateur.stop(contexte.currentTime + 0.5);
+}
+
+function programmerRappel(texte, heure) {
   let maintenant = new Date();
   let [h, m] = heure.split(":").map(Number);
   let rappel = new Date();
   rappel.setHours(h, m, 0, 0);
-
   let diff = rappel - maintenant;
 
   if (diff > 0) {
     setTimeout(function() {
-      jouerSon();
-      alert("⏰ Il est l'heure ! \n\n" + texte);
+      afficherAlarme(texte, heure);
     }, diff);
   }
 }
 
-function jouerSon() {
-  let contexte = new (window.AudioContext || window.webkitAudioContext)();
-  let oscillateur = contexte.createOscillator();
-  let gain = contexte.createGain();
+function afficherAlarme(texte, heure) {
+  let overlay = document.createElement("div");
+  overlay.id = "alarme-overlay";
+  overlay.style.cssText = 
+    "position:fixed; top:0; left:0; width:100%; height:100%;" +
+    "background:rgba(0,0,0,0.92); z-index:9999;" +
+    "display:flex; flex-direction:column;" +
+    "align-items:center; justify-content:center; text-align:center;";
+
+  let compte = 30;
   
-  oscillateur.connect(gain);
-  gain.connect(contexte.destination);
+  overlay.innerHTML = 
+    "<div style='font-size:60px;'>⏰</div>" +
+    "<h2 style='color:#ff4444; font-size:28px; margin:10px;'>RAPPEL !</h2>" +
+    "<div style='color:white; font-size:22px; margin:10px; padding:20px;" +
+    "background:#1a1a1a; border:2px solid purple; border-radius:12px;'>" +
+    "🔔 " + texte + "</div>" +
+    "<p style='color:orange; font-size:18px;'>Heure : " + heure + "</p>" +
+    "<p id='compte-rebours' style='color:white; font-size:16px;'>Fermeture dans 30s</p>" +
+    "<button onclick='fermerAlarme()' style='margin-top:20px; background:purple;" +
+    "color:white; border:none; padding:15px 30px; border-radius:12px;" +
+    "font-size:18px; cursor:pointer;'>✅ Compris !</button>";
+
+  document.body.appendChild(overlay);
+
+  let contexte = new (window.AudioContext || 
+  window.webkitAudioContext)();
   
-  oscillateur.frequency.value = 880;
-  oscillateur.type = "sine";
-  gain.gain.setValueAtTime(1, contexte.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.001, contexte.currentTime + 1.5);
-  
-  oscillateur.start(contexte.currentTime);
-  oscillateur.stop(contexte.currentTime + 1.5);
+  let sonnerie = setInterval(function() {
+    jouerSon(contexte);
+  }, 800);
+
+  let rebours = setInterval(function() {
+    compte--;
+    let el = document.getElementById("compte-rebours");
+    if (el) el.innerHTML = "Fermeture dans " + compte + "s";
+    if (compte <= 0) {
+      clearInterval(sonnerie);
+      clearInterval(rebours);
+      fermerAlarme();
+    }
+  }, 1000);
+
+  window._sonnerie = sonnerie;
+  window._rebours = rebours;
 }
+
+function fermerAlarme() {
+  clearInterval(window._sonnerie);
+  clearInterval(window._rebours);
+  let overlay = document.getElementById("alarme-overlay");
+  if (overlay) overlay.remove();
+    }
 function basculerBarre(element) {
   if (element.style.textDecoration === "line-through") {
     element.style.textDecoration = "none";
