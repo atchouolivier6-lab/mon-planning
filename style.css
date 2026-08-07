@@ -98,11 +98,40 @@ a:hover {
   letter-spacing: 1px;
 }
 
-.footer-brand {
+footer {
   text-align: center;
-  padding: 20px;
-  margin-top: 20px;
+  padding: 25px 15px;
+  margin-top: 30px;
   border-top: 1px solid purple;
+  background: #0a0a0a;
+}
+
+.footer-titre {
   color: orange;
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.footer-copy {
+  color: #666;
+  font-size: 12px;
+  margin-bottom: 15px;
+}
+
+.footer-liens {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-liens a {
+  color: #aaa;
   font-size: 13px;
+  text-decoration: none;
+}
+
+.footer-liens a:hover {
+  color: orange;
 }
