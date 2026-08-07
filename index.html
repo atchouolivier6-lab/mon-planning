@@ -2,26 +2,22 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" 
-  content="width=device-width, initial-scale=1.0">
-  <title>Mon Planning - Mustchrist</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon Planning</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body><h1>📅 Mon Planning</h1>
+<body>
+
+<h1>📅 Mon Planning</h1>
 <p id="dateHeure"></p>
 
 <div class="carte">
-  <button onclick="afficherJour()">
-    📆 Vue Journée
-  </button>
-  <button onclick="afficherSemaine()">
-    🗓️ Vue Semaine
-  </button>
+  <button onclick="afficherJour()">📆 Vue Journée</button>
+  <button onclick="afficherSemaine()">🗓️ Vue Semaine</button>
 </div>
 
 <div class="carte">
-  <input type="text" id="tache" 
-  placeholder="Ajouter une tâche..." />
+  <input type="text" id="tache" placeholder="Ajouter une tâche..." />
   <select id="jourChoisi">
     <option value="Lundi">Lundi</option>
     <option value="Mardi">Mardi</option>
@@ -31,9 +27,7 @@
     <option value="Samedi">Samedi</option>
     <option value="Dimanche">Dimanche</option>
   </select>
-  <button onclick="ajouterTache()">
-    ➕ Ajouter
-  </button>
+  <button onclick="ajouterTache()">➕ Ajouter</button>
 </div>
 
 <div class="carte" id="carte-Lundi">
@@ -69,6 +63,8 @@
 <div class="carte" id="carte-Dimanche">
   <h3>📌 Dimanche</h3>
   <ul id="listeDimanche"></ul>
-</div><script src="script.js"></script>
+</div>
+
+<script src="script.js"></script>
 </body>
-    </html>
+</html>
