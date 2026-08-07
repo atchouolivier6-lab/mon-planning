@@ -51,9 +51,11 @@ function ajouterElement(jour, texte, heure, barre) {
   let liste = document.getElementById("liste" + jour);
   let element = document.createElement("li");
   let heureAffichee = heure ? "⏰ " + heure + " — " : "";
+  
   element.innerHTML = 
-    "<span onclick='this.style.textDecoration=\"line-through\"' style='flex:1; cursor:pointer; text-decoration:" + barre + ";'>" + heureAffichee + "✅ " + texte + "</span>" +
+    "<span onclick='basculerBarre(this)' style='flex:1; cursor:pointer; text-decoration:" + barre + ";'>" + heureAffichee + "✅ " + texte + "</span>" +
     "<span onclick='this.parentElement.remove(); sauvegarder();' style='cursor:pointer; font-size:18px;'>🗑️</span>";
+  
   liste.appendChild(element);
 
   if (heure) {
@@ -106,14 +108,33 @@ function programmerRappel(texte, heure) {
 
   if (diff > 0) {
     setTimeout(function() {
-      if (Notification.permission === "granted") {
-        new Notification("⏰ Rappel Mustchrist", {
-          body: "Il est l'heure : " + texte,
-          icon: "https://mustchrist.wordpress.com/favicon.ico"
-        });
-      } else {
-        alert("⏰ Rappel : " + texte);
-      }
+      jouerSon();
+      alert("⏰ Il est l'heure ! \n\n" + texte);
     }, diff);
   }
-    }
+}
+
+function jouerSon() {
+  let contexte = new (window.AudioContext || window.webkitAudioContext)();
+  let oscillateur = contexte.createOscillator();
+  let gain = contexte.createGain();
+  
+  oscillateur.connect(gain);
+  gain.connect(contexte.destination);
+  
+  oscillateur.frequency.value = 880;
+  oscillateur.type = "sine";
+  gain.gain.setValueAtTime(1, contexte.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, contexte.currentTime + 1.5);
+  
+  oscillateur.start(contexte.currentTime);
+  oscillateur.stop(contexte.currentTime + 1.5);
+}
+function basculerBarre(element) {
+  if (element.style.textDecoration === "line-through") {
+    element.style.textDecoration = "none";
+  } else {
+    element.style.textDecoration = "line-through";
+  }
+  sauvegarder();
+}
