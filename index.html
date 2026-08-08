@@ -3,14 +3,116 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mon Planning</title>
+  <title>MC-Planning</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>📅 Mon Planning</h1>
+<h1>📅 MC-Planning</h1>
 <p id="dateHeure"></p>
+<button onclick="ouvrirApropos()" 
+style="width:auto; padding:8px 20px; 
+background:transparent; border:1px solid orange; 
+color:orange; border-radius:20px; font-size:14px;">
+ℹ️ À propos
+</button>
 
+<div id="apropos-overlay" style="display:none; 
+position:fixed; top:0; left:0; width:100%; height:100%;
+background:rgba(0,0,0,0.95); z-index:9999;
+overflow-y:auto; padding:20px;">
+  <div style="max-width:500px; margin:0 auto; 
+  background:#1a1a1a; border:1px solid purple;
+  border-radius:12px; padding:25px; margin-top:30px;">
+    
+    <div style="text-align:right;">
+      <span onclick="fermerApropos()" 
+      style="cursor:pointer; font-size:24px; color:#aaa;">✕</span>
+    </div>
+
+    <div style="text-align:center; margin-bottom:20px;">
+      <div style="font-size:50px;">📅</div>
+      <h2 style="color:purple; font-size:22px;">MC-Planning</h2>
+      <p style="color:orange; font-size:13px;">
+      by Mustchrist</p>
+    </div>
+
+    <div style="border-top:1px solid #333; padding-top:15px;">
+      <h3 style="color:orange; font-size:16px; 
+      margin-bottom:10px;">📖 Description</h3>
+      <p style="color:#ccc; font-size:14px; 
+      text-align:left; line-height:1.6;">
+      MC-Planning est une application gratuite de 
+      planification hebdomadaire créée par Olivier ATCHOU. 
+      Elle vous permet d'organiser vos tâches jour par 
+      jour avec des rappels automatiques.
+      </p>
+    </div>
+
+    <div style="border-top:1px solid #333; 
+    padding-top:15px; margin-top:15px;">
+      <h3 style="color:orange; font-size:16px; 
+      margin-bottom:10px;">🎯 Comment utiliser</h3>
+      <p style="color:#ccc; font-size:14px; 
+      text-align:left; line-height:1.8;">
+      1️⃣ Écrivez votre tâche dans le champ texte<br>
+      2️⃣ Choisissez une heure de rappel (optionnel)<br>
+      3️⃣ Sélectionnez le jour de la semaine<br>
+      4️⃣ Appuyez sur ➕ Ajouter<br>
+      5️⃣ Cliquez sur une tâche pour la barrer<br>
+      6️⃣ Cliquez encore pour enlever la barre<br>
+      7️⃣ 🗑️ pour supprimer une tâche
+      </p>
+    </div>
+
+    <div style="border-top:1px solid #333; 
+    padding-top:15px; margin-top:15px;">
+      <h3 style="color:orange; font-size:16px; 
+      margin-bottom:10px;">👤 Créateur</h3>
+      <p style="color:#ccc; font-size:14px; 
+      text-align:left; line-height:1.8;">
+      🎨 Olivier ATCHOU— Créateur de contenu<br>
+      ⚡ Électricien bâtiment, Installateur en énergie photovoltaïque,et d'Antennes parabolique :[BUILDING ELECTRICAL SERVICE]BES<br>
+      🌍 Bénin<br>
+      📞 +229 0152353448
+      </p>
+    </div>
+
+    <div style="border-top:1px solid #333; 
+    padding-top:15px; margin-top:15px;">
+      <h3 style="color:orange; font-size:16px; 
+      margin-bottom:10px;">🔗 Retrouvez-moi</h3>
+      <div style="display:flex; flex-wrap:wrap; 
+      gap:10px; justify-content:center;">
+        <a href="https://mustchrist.wordpress.com" 
+        target="_blank" style="color:#aaa; 
+        font-size:13px; text-decoration:none;">
+        🌍 Blog</a>
+        <a href="https://wa.me/2290152353448" 
+        target="_blank" style="color:#aaa; 
+        font-size:13px; text-decoration:none;">
+        💬 WhatsApp</a>
+        <a href="https://www.facebook.com/olivier.atchou" 
+        target="_blank" style="color:#aaa; 
+        font-size:13px; text-decoration:none;">
+        📘 Facebook</a>
+        <a href="https://www.tiktok.com/@mustchrist" 
+        target="_blank" style="color:#aaa; 
+        font-size:13px; text-decoration:none;">
+        🎵 TikTok</a>
+      </div>
+    </div>
+
+    <button onclick="fermerApropos()" 
+    style="margin-top:20px; background:purple; 
+    color:white; border:none; padding:12px; 
+    border-radius:8px; font-size:15px; 
+    cursor:pointer; width:100%;">
+    ✕ Fermer
+    </button>
+
+  </div>
+</div>
 <div class="carte">
   <button onclick="afficherJour()">📆 Vue Journée</button>
   <button onclick="afficherSemaine()">🗓️ Vue Semaine</button>
@@ -30,7 +132,167 @@
   </select>
   <button onclick="ajouterTache()">➕ Ajouter</button>
 </div>
+<button onclick="ouvrirDon()" 
+style="width:auto; padding:8px 20px; 
+background:transparent; border:1px solid #ff4444; 
+color:#ff4444; border-radius:20px; font-size:14px;
+margin-left:10px;">
+❤️ J'aime 
+</button>
 
+<div id="don-overlay" style="display:none; 
+position:fixed; top:0; left:0; width:100%; height:100%;
+background:rgba(0,0,0,0.95); z-index:9999;
+overflow-y:auto; padding:20px;">
+  <div style="max-width:500px; margin:0 auto; 
+  background:#1a1a1a; border:1px solid #ff4444;
+  border-radius:12px; padding:25px; margin-top:30px;">
+    
+    <div style="text-align:right;">
+      <span onclick="fermerDon()" 
+      style="cursor:pointer; font-size:24px; color:#aaa;">✕</span>
+    </div>
+
+    <div style="text-align:center; margin-bottom:20px;">
+      <div style="font-size:50px;">❤️ Soutenir</div>
+      <h2 style="color:#ff4444; font-size:20px;">
+      Soutenez Olivier ATCHOU</h2>
+      <p style="color:#aaa; font-size:13px; 
+      font-style:italic;">
+      par votre geste de générosité ! (facultatif)</p>
+    </div>
+
+    <div style="margin-bottom:15px;">
+      <p style="color:orange; font-size:14px; 
+      margin-bottom:10px; text-align:left;">
+      💰 Choisissez un montant rapide :</p>
+      <div style="display:flex; flex-wrap:wrap; 
+      gap:10px; justify-content:center;">
+        <button onclick="choisirMontant(500)" 
+        style="background:#333; color:white; 
+        border:1px solid #ff4444; padding:10px 15px; 
+        border-radius:8px; font-size:14px; 
+        cursor:pointer; width:auto;">
+        500 F</button>
+        <button onclick="choisirMontant(1000)" 
+        style="background:#333; color:white; 
+        border:1px solid #ff4444; padding:10px 15px; 
+        border-radius:8px; font-size:14px; 
+        cursor:pointer; width:auto;">
+        1 000 F</button>
+        <button onclick="choisirMontant(2000)" 
+        style="background:#333; color:white; 
+        border:1px solid #ff4444; padding:10px 15px; 
+        border-radius:8px; font-size:14px; 
+        cursor:pointer; width:auto;">
+        2 000 F</button>
+        <button onclick="choisirMontant(5000)" 
+        style="background:#333; color:white; 
+        border:1px solid #ff4444; padding:10px 15px; 
+        border-radius:8px; font-size:14px; 
+        cursor:pointer; width:auto;">
+        5 000 F</button>
+      </div>
+    </div>
+
+    <div style="margin-bottom:20px;">
+      <p style="color:orange; font-size:14px; 
+      margin-bottom:8px; text-align:left;">
+      ✏️ Ou entrez un montant personnalisé :</p>
+      <input type="number" id="montantDon" 
+      placeholder="Montant en FCFA..."
+      style="width:100%; padding:12px; 
+      border-radius:8px; border:1px solid #ff4444; 
+      background:#0a0a0a; color:white; 
+      font-size:15px;" />
+    </div>
+
+    <button onclick="passerPaiement()" 
+    style="background:#ff4444; color:white; 
+    border:none; padding:15px; border-radius:8px; 
+    font-size:16px; cursor:pointer; width:100%;
+    margin-bottom:10px;">
+    ❤️ Soutenir MC
+    </button>
+
+    <button onclick="fermerDon()" 
+    style="background:#333; color:#aaa; 
+    border:1px solid #333; padding:12px; 
+    border-radius:8px; font-size:14px; 
+    cursor:pointer; width:100%;">
+    Annuler
+    </button>
+
+  </div>
+</div>
+
+<div id="paiement-overlay" style="display:none; 
+position:fixed; top:0; left:0; width:100%; height:100%;
+background:rgba(0,0,0,0.95); z-index:9999;
+overflow-y:auto; padding:20px;">
+  <div style="max-width:500px; margin:0 auto; 
+  background:#1a1a1a; border:1px solid purple;
+  border-radius:12px; padding:25px; margin-top:30px;">
+    
+    <div style="text-align:right;">
+      <span onclick="fermerPaiement()" 
+      style="cursor:pointer; font-size:24px; color:#aaa;">✕</span>
+    </div>
+
+    <div style="text-align:center; margin-bottom:20px;">
+      <div style="font-size:40px;">💳</div>
+      <h2 style="color:orange; font-size:18px;">
+      Choisissez votre moyen de paiement</h2>
+      <p id="montant-affiche" style="color:#ff4444; 
+      font-size:20px; font-weight:bold; margin:10px 0;">
+      </p>
+    </div>
+
+    <div style="display:flex; flex-direction:column; 
+    gap:15px;">
+      
+      <button onclick="confirmerPaiement('MTN')" 
+      style="background:#ffcc00; color:#000; 
+      border:none; padding:20px; border-radius:12px; 
+      font-size:16px; cursor:pointer; width:100%;
+      font-weight:bold;">
+      📱 MTN Mobile Money<br>
+      <span style="font-size:13px; font-weight:normal;">
+      +229 0152353448 — ATCHOU Olivier</span>
+      </button>
+
+      <button onclick="confirmerPaiement('Moov')" 
+      style="background:#0066cc; color:white; 
+      border:none; padding:20px; border-radius:12px; 
+      font-size:16px; cursor:pointer; width:100%;
+      font-weight:bold;">
+      📱 Moov Money<br>
+      <span style="font-size:13px; font-weight:normal;">
+      +229 0158040055 — ATCHOU Olivier</span>
+      </button>
+
+      <button onclick="confirmerPaiement('Celtiis')" 
+      style="background:#00aa44; color:white; 
+      border:none; padding:20px; border-radius:12px; 
+      font-size:16px; cursor:pointer; width:100%;
+      font-weight:bold;">
+      📱 Celtiis Cash<br>
+      <span style="font-size:13px; font-weight:normal;">
+      +229 0192916652 — ATCHOU Olivier</span>
+      </button>
+
+    </div>
+
+    <button onclick="fermerPaiement()" 
+    style="background:#333; color:#aaa; 
+    border:1px solid #333; padding:12px; 
+    border-radius:8px; font-size:14px; 
+    cursor:pointer; width:100%; margin-top:15px;">
+    ← Retour
+    </button>
+
+  </div>
+</div>
 <div class="carte" id="carte-Lundi">
   <h3>📌 Lundi</h3>
   <ul id="listeLundi"></ul>
@@ -79,4 +341,4 @@
 
 <script src="script.js"></script>
 </body>
-</html>
+  </html>
