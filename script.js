@@ -359,14 +359,14 @@ function programmerRappel(texte, heure) {
 function afficherAlarme(texte, heure) {
   let overlay = document.getElementById("alarme-overlay");
   overlay.style.display = "flex";
-  let compte = 30;
+  let compte = 45;
 
   overlay.innerHTML =
     "<div class='alarme-titre'>RAPPEL !</div>" +
     "<div class='alarme-message'>Il est l'heure d'accomplir votre tache, levez-vous maintenant !</div>" +
     "<div class='alarme-tache'>" + texte + "</div>" +
     "<div class='alarme-heure'>Heure : " + heure + "</div>" +
-    "<div class='alarme-compte' id='alarme-compte'>Fermeture dans 30s</div>" +
+    "<div class='alarme-compte' id='alarme-compte'>Fermeture dans 45s</div>" +
     "<div class='alarme-btns'>" +
     "<button class='btn-ignorer' onclick='fermerAlarme()'>Ignorer</button>" +
     "<button class='btn-compris' onclick='fermerAlarme()'>Compris !</button>" +
