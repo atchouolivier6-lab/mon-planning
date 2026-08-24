@@ -1,345 +1,287 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MC-Planning</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MC-Planning</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>📅 MC-Planning</h1>
-<p id="dateHeure"></p>
-<button onclick="ouvrirApropos()" 
-style="width:auto; padding:8px 20px; 
-background:transparent; border:1px solid orange; 
-color:orange; border-radius:20px; font-size:14px;">
-ℹ️ À propos
-</button>
-
-<div id="apropos-overlay" style="display:none; 
-position:fixed; top:0; left:0; width:100%; height:100%;
-background:rgba(0,0,0,0.95); z-index:9999;
-overflow-y:auto; padding:20px;">
-  <div style="max-width:500px; margin:0 auto; 
-  background:#1a1a1a; border:1px solid purple;
-  border-radius:12px; padding:25px; margin-top:30px;">
-    
-    <div style="text-align:right;">
-      <span onclick="fermerApropos()" 
-      style="cursor:pointer; font-size:24px; color:#aaa;">✕</span>
+<div id="page-auth" class="page active">
+  <div class="auth-container">
+    <div class="auth-logo">
+      <div class="logo-cercle">MC</div>
+      <h1>MC-Planning</h1>
+      <p>Organisez votre semaine avec efficacité</p>
     </div>
 
-    <div style="text-align:center; margin- Ottoman:20px;">
-      <div style="font-size:50px;">📅</div>
-      <h2 style="color:purple; font-size:22px;">MC-Planning</h2>
-      <p style="color:orange; font-size:13px;">
-      by Mustchrist</p>
+    <div id="form-connexion" class="auth-form active">
+      <h2>Connexion</h2>
+      <div class="champ">
+        <label>Adresse email</label>
+        <input type="email" id="login-email" placeholder="votrenom@gmail.com" />
+      </div>
+      <div class="champ">
+        <label>Mot de passe</label>
+        <input type="password" id="login-mdp" placeholder="Votre mot de passe" />
+      </div>
+      <button class="btn-principal" onclick="seConnecter()">Se connecter</button>
+      <div class="separateur"></div>
+      <p class="lien-switch">Pas encore de compte ? <span onclick="afficherInscription()">S'inscrire gratuitement</span></p>
+      <p class="lien-switch"><span onclick="reinitialiserMdp()">Mot de passe oublié ?</span></p>
     </div>
 
-    <div style="border-top:1px solid #333; padding-top:15px;">
-      <h3 style="color:orange; font-size:16px; 
-      margin-bottom:10px;">♦ Description</h3>
-      <p style="color:#ccc; font-size:14px; 
-      text-align:left; line-height:1.6;">
-      MC-Planning est une application gratuite de 
-      planification hebdomadaire. 
-      Elle vous permet d'organiser vos tâches jour par 
-      jour avec des rappels automatiques.
-      </p>
+    <div id="form-inscription" class="auth-form">
+      <h2>Creer un compte</h2>
+      <div class="champ">
+        <label>Nom complet</label>
+        <input type="text" id="reg-nom" placeholder="Ex: ATCHOU Olivier" />
+      </div>
+      <div class="champ">
+        <label>Adresse email</label>
+        <input type="email" id="reg-email" placeholder="votrenom@gmail.com" />
+      </div>
+      <div class="champ">
+        <label>Mot de passe</label>
+        <input type="password" id="reg-mdp" placeholder="Minimum 6 caracteres" />
+      </div>
+      <div class="champ">
+        <label>Confirmer le mot de passe</label>
+        <input type="password" id="reg-mdp2" placeholder="Repetez le mot de passe" />
+      </div>
+      <button class="btn-principal" onclick="sInscrire()">Créer mon compte</button>
+      <div class="separateur"></div>
+      <p class="lien-switch">Déjà un compte ? <span onclick="afficherConnexion()">Se connecter</span></p>
     </div>
 
-    <div style="border-top:1px solid #333; 
-    padding-top:15px; margin-top:15px;">
-      <h3 style="color:orange; font-size:16px; 
-      margin-bottom:10px;">♦ Comment utiliser</h3>
-      <p style="color:#ccc; font-size:14px; 
-      text-align:left; line-height:1.8;">
-      • Écrivez votre tâche dans le champ texte<br>
-      • Choisissez une heure de rappel (optionnel)<br>
-      • Sélectionnez le jour de la semaine<br>
-      • Appuyez sur "Ajouter" pour enregistrer votre tâche<br>
-        
-      • Cliquez sur une tâche pour la barrer,ce qui vous permet d'identifier les tâches déjà exécutés parmis les tâches enregistrés<br>
-      • Cliquez encore pour enlever la barre<br>
-      • appuyez sur 🗑️ pour supprimer une tâche
-      </p>
+    <div class="auth-footer">
+      <p>MC-Planning — par Mustchrist</p>
+      <p>mustchrist.wordpress.com</p>
+    </div>
+  </div>
+</div>
+
+<div id="page-planning" class="page">
+
+  <div id="menu-overlay" class="menu-overlay" onclick="fermerMenu()"></div>
+
+  <div id="menu-lateral" class="menu-lateral">
+    <div class="menu-header">
+      <div class="logo-cercle">MC</div>
+      <div>
+        <p class="menu-titre">MC-Planning</p>
+        <p class="menu-sous-titre">par Mustchrist</p>
+      </div>
+      <button class="btn-fermer-menu" onclick="fermerMenu()">X</button>
     </div>
 
-    <div style="border-top:1px solid #333; 
-    padding-top:15px; margin-top:15px;">
-      <h3 style="color:orange; font-size:16px; 
-      margin-bottom:10px;">♦ Créateur</h3>
-      <p style="color:#ccc; font-size:14px; 
-      text-align:left; line-height:1.8;">
-       Olivier ATCHOU— Créateur de contenu<br>
-       Électricien bâtiment, Installateur en énergie photovoltaïque,et d'Antennes parabolique :[BUILDING ELECTRICAL SERVICE]<br>
-       <br>
-      contact: +229 0152353448
-      </p>
+    <nav class="menu-nav">
+      <a href="#" class="menu-item active" onclick="fermerMenu(); allerAccueil()">
+        <span class="menu-icone">H</span>
+        <span>Accueil</span>
+      </a>
+      <a href="#" class="menu-item" onclick="fermerMenu(); ouvrirApropos()">
+        <span class="menu-icone">?</span>
+        <span>A propos</span>
+      </a>
+      <a href="#" class="menu-item" onclick="fermerMenu(); ouvrirCreateur()">
+        <span class="menu-icone">P</span>
+        <span>Le créateur</span>
+      </a>
+    </nav>
+
+    <div class="menu-footer">
+      <p>Version 1.0 — 2026</p>
+      <p>Mustchrist</p>
+    </div>
+  </div>
+
+  <header>
+    <div class="header-content">
+      <div class="header-gauche">
+        <button class="btn-menu" onclick="ouvrirMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="logo-petit">MC</div>
+        <div>
+          <h1>MC-Planning</h1>
+          <p id="dateHeure" class="date-heure"></p>
+        </div>
+      </div>
+      <div class="header-droite">
+        <p id="user-nom" class="user-nom"></p>
+        <button class="btn-deconnexion" onclick="seDéconnecter()">Déconnexion</button>
+      </div>
+    </div>
+  </header>
+
+  <div id="contenu-principal" class="container">
+
+    <div class="vue-btns">
+      <button class="btn-vue" onclick="afficherJour()">Vue Journée</button>
+      <button class="btn-vue" onclick="afficherSemaine()">Vue Semaine</button>
     </div>
 
-    <div style="border-top:1px solid #333; 
-    padding-top:15px; margin-top:15px;">
-      <h3 style="color:orange; font-size:16px; 
-      margin-bottom:10px;">🔗 Retrouvez-moi</h3>
-      <div style="display:flex; flex-wrap:wrap; 
-      gap:10px; justify-content:center;">
-        <a href="https://mustchrist.wordpress.com" 
-        target="_blank" style="color:#aaa; 
-        font-size:13px; text-decoration:none;">
-        🌍 Blog</a>
-        <a href="https://wa.me/2290152353448" 
-        target="_blank" style="color:#aaa; 
-        font-size:13px; text-decoration:none;">
-        💬 WhatsApp</a>
-        <a href="https://www.facebook.com/profile.php?id=61581609661282" 
-        target="_blank" style="color:#aaa; 
-        font-size:13px; text-decoration:none;">
-        📘 Facebook</a>
-        <a href="https://www.tiktok.com/@mustcmjrxnx" 
-        target="_blank" style="color:#aaa; 
-        font-size:13px; text-decoration:none;">
-        🎵 TikTok</a>
+    <div class="ajout-carte">
+      <h3>Ajouter une tâche</h3>
+      <div class="ajout-champs">
+        <input type="text" id="tache" placeholder="Décrivez votre tâche..." />
+        <input type="time" id="heureTâche" />
+        <select id="jourChoisi">
+          <option value="Lundi">Lundi</option>
+          <option value="Mardi">Mardi</option>
+          <option value="Mercredi">Mercredi</option>
+          <option value="Jeudi">Jeudi</option>
+          <option value="Vendredi">Vendredi</option>
+          <option value="Samedi">Samedi</option>
+          <option value="Dimanche">Dimanche</option>
+        </select>
+        <button class="btn-ajouter" onclick="ajouterTâche()">+ Ajouter</button>
       </div>
     </div>
 
-    <button onclick="fermerApropos()" 
-    style="margin-top:20px; background:purple; 
-    color:white; border:none; padding:12px; 
-    border-radius:8px; font-size:15px; 
-    cursor:pointer; width:100%;">
-    ✕ Fermer
-    </button>
-
-  </div>
-</div>
-<div class="carte">
-  <button onclick="afficherJour()">📆 Vue Journée</button>
-  <button onclick="afficherSemaine()">🗓️ Vue Semaine</button>
-</div>
-
-<div class="carte">
-  <input type="text" id="tache" placeholder="Ajouter une tâche..." />
-  <input type="time" id="heureTache" />
-  <select id="jourChoisi">
-    <option value="Lundi">Lundi</option>
-    <option value="Mardi">Mardi</option>
-    <option value="Mercredi">Mercredi</option>
-    <option value="Jeudi">Jeudi</option>
-    <option value="Vendredi">Vendredi</option>
-    <option value="Samedi">Samedi</option>
-    <option value="Dimanche">Dimanche</option>
-  </select>
-  <button onclick="ajouterTache()"> Ajouter</button>
-</div>
-<button onclick="ouvrirDon()" 
-style="width:auto; padding:8px 20px; 
-background:transparent; border:1px solid #ff4444; 
-color:#ff4444; border-radius:20px; font-size:14px;
-margin-left:10px;">
-❤️ J'aime 
-</button>
-
-<div id="don-overlay" style="display:none; 
-position:fixed; top:0; left:0; width:100%; height:100%;
-background:rgba(0,0,0,0.95); z-index:9999;
-overflow-y:auto; padding:20px;">
-  <div style="max-width:500px; margin:0 auto; 
-  background:#1a1a1a; border:1px solid #ff4444;
-  border-radius:12px; padding:25px; margin-top:30px;">
-    
-    <div style="text-align:right;">
-      <span onclick="fermerDon()" 
-      style="cursor:pointer; font-size:24px; color:#aaa;">✕</span>
-    </div>
-
-    <div style="text-align:center; margin-bottom:20px;">
-      <div style="font-size:50px;"> Soutient</div>
-      <h2 style="color:#ff4444; font-size:20px;">
-      Soutenez Olivier ATCHOU</h2>
-      <p style="color:#aaa; font-size:13px; 
-      font-style:italic;">
-      par votre geste de générosité ! (facultatif)</p>
-    </div>
-
-    <div style="margin-bottom:15px;">
-      <p style="color:orange; font-size:14px; 
-      margin-bottom:10px; text-align:left;">
-      ★ Choisissez un montant rapide :</p>
-      <div style="display:flex; flex-wrap:wrap; 
-      gap:10px; justify-content:center;">
-        <button onclick="choisirMontant(500)" 
-        style="background:#333; color:white; 
-        border:1px solid #ff4444; padding:10px 15px; 
-        border-radius:8px; font-size:14px; 
-        cursor:pointer; width:auto;">
-        500 F</button>
-        <button onclick="choisirMontant(1000)" 
-        style="background:#333; color:white; 
-        border:1px solid #ff4444; padding:10px 15px; 
-        border-radius:8px; font-size:14px; 
-        cursor:pointer; width:auto;">
-        1 000 F</button>
-        <button onclick="choisirMontant(2000)" 
-        style="background:#333; color:white; 
-        border:1px solid #ff4444; padding:10px 15px; 
-        border-radius:8px; font-size:14px; 
-        cursor:pointer; width:auto;">
-        2 000 F</button>
-        <button onclick="choisirMontant(5000)" 
-        style="background:#333; color:white; 
-        border:1px solid #ff4444; padding:10px 15px; 
-        border-radius:8px; font-size:14px; 
-        cursor:pointer; width:auto;">
-        5 000 F</button>
+    <div class="jours-grid">
+      <div id="carte-Lundi" class="jour-carte">
+        <div class="jour-header">
+          <h3>Lundi</h3>
+          <span class="compteur" id="compteur-Lundi">0</span>
+        </div>
+        <ul id="listeLundi"></ul>
+        <p class="vide-msg" id="vide-Lundi">Aucune tâche pour ce jour</p>
+      </div>
+      <div id="carte-Mardi" class="jour-carte">
+        <div class="jour-header">
+          <h3>Mardi</h3>
+          <span class="compteur" id="compteur-Mardi">0</span>
+        </div>
+        <ul id="listeMardi"></ul>
+        <p class="vide-msg" id="vide-Mardi">Aucune tâche pour ce jour</p>
+      </div>
+      <div id="carte-Mercredi" class="jour-carte">
+        <div class="jour-header">
+          <h3>Mercredi</h3>
+          <span class="compteur" id="compteur-Mercredi">0</span>
+        </div>
+        <ul id="listeMercredi"></ul>
+        <p class="vide-msg" id="vide-Mercredi">Aucune tâche pour ce jour</p>
+      </div>
+      <div id="carte-Jeudi" class="jour-carte">
+        <div class="jour-header">
+          <h3>Jeudi</h3>
+          <span class="compteur" id="compteur-Jeudi">0</span>
+        </div>
+        <ul id="listeJeudi"></ul>
+        <p class="vide-msg" id="vide-Jeudi">Aucune tâche pour ce jour</p>
+      </div>
+      <div id="carte-Vendredi" class="jour-carte">
+        <div class="jour-header">
+          <h3>Vendredi</h3>
+          <span class="compteur" id="compteur-Vendredi">0</span>
+        </div>
+        <ul id="listeVendredi"></ul>
+        <p class="vide-msg" id="vide-Vendredi">Aucune tâche pour ce jour</p>
+      </div>
+      <div id="carte-Samedi" class="jour-carte">
+        <div class="jour-header">
+          <h3>Samedi</h3>
+          <span class="compteur" id="compteur-Samedi">0</span>
+        </div>
+        <ul id="listeSamedi"></ul>
+        <p class="vide-msg" id="vide-Samedi">Aucune tâche pour ce jour</p>
+      </div>
+      <div id="carte-Dimanche" class="jour-carte">
+        <div class="jour-header">
+          <h3>Dimanche</h3>
+          <span class="compteur" id="compteur-Dimanche">0</span>
+        </div>
+        <ul id="listeDimanche"></ul>
+        <p class="vide-msg" id="vide-Dimanche">Aucune tâche pour ce jour</p>
       </div>
     </div>
 
-    <div style="margin-bottom:20px;">
-      <p style="color:orange; font-size:14px; 
-      margin-bottom:8px; text-align:left;">
-      ★ Ou entrez un montant personnalisé :</p>
-      <input type="number" id="montantDon" 
-      placeholder="Montant en FCFA..."
-      style="width:100%; padding:12px; 
-      border-radius:8px; border:1px solid #ff4444; 
-      background:#0a0a0a; color:white; 
-      font-size:15px;" />
-    </div>
-
-    <button onclick="passerPaiement()" 
-    style="background:#ff4444; color:white; 
-    border:none; padding:15px; border-radius:8px; 
-    font-size:16px; cursor:pointer; width:100%;
-    margin-bottom:10px;">
-     Soutenir MC
-    </button>
-
-    <button onclick="fermerDon()" 
-    style="background:#333; color:#aaa; 
-    border:1px solid #333; padding:12px; 
-    border-radius:8px; font-size:14px; 
-    cursor:pointer; width:100%;">
-    Annuler
-    </button>
-
   </div>
-</div>
 
-<div id="paiement-overlay" style="display:none; 
-position:fixed; top:0; left:0; width:100%; height:100%;
-background:rgba(0,0,0,0.95); z-index:9999;
-overflow-y:auto; padding:20px;">
-  <div style="max-width:500px; margin:0 auto; 
-  background:#1a1a1a; border:1px solid purple;
-  border-radius:12px; padding:25px; margin-top:30px;">
-    
-    <div style="text-align:right;">
-      <span onclick="fermerPaiement()" 
-      style="cursor:pointer; font-size:24px; color:#aaa;">✕</span>
+  <div id="page-apropos" class="sous-page" style="display:none;">
+    <div class="container">
+      <button class="btn-retour" onclick="retourPlanning()">Retour</button>
+      <div class="apropos-carte">
+        <h2>À propos de MC-Planning</h2>
+        <div class="apropos-section">
+          <h3>Qu'est-ce que MC-Planning ?</h3>
+          <p>MC-Planning est une application web de planification hebdomadaire gratuite. Elle vous permet d'organiser vos tâches jour par jour, de reçevoir des rappels sonores et de synchroniser vos données sur tous vos appareils.</p>
+        </div>
+        <div class="apropos-section">
+          <h3>• Comment l'utiliser ?</h3>
+          <p>1. Créez un compte gratuitement avec votre email</p>
+          <p>2. Écrivez une tâche dans le champ prévu</p>
+          <p>3. Choisissez une heure de rappel si necessaire</p>
+          <p>4. Selectionnez le jour de la semaine</p>
+          <p>5. Appuyez sur Ajouter</p>
+          <p>6. Cliquez sur une tâche pour la marquer comme faite</p>
+          <p>7. Cliquez sur X pour supprimer une tâche</p>
+        </div>
+        <div class="apropos-section">
+          <h3>Fonctionnalites</h3>
+          <p>- Planning complet sur 7 jours</p>
+          <p>- Vue journee et vue semaine</p>
+          <p>- Rappels sonores avec melodie</p>
+          <p>- Sauvegarde automatique en ligne</p>
+          <p>- Accessible depuis n'importe quel appareil</p>
+          <p>- Compte personnel securise</p>
+          <p>- 100% gratuit</p>
+        </div>
+        <div class="apropos-section">
+          <h3>• Utilité</h3>
+          <p>MC-Planning vous aide à mieux organiser votre temps, à ne plus oublier vos tâches importantes et à être plus productif au quotidien. Que vous soyez étudiant, professionnel ou entrepreneur, cet outil s'adapte à votre rythme de vie.</p>
+        </div>
+      </div>
     </div>
-
-    <div style="text-align:center; margin-bottom:20px;">
-      
-      <h2 style="color:orange; font-size:18px;">
-   Choisissez votre moyen de paiement</h2>
-      <p id="montant-affiche" style="color:#ff4444; 
-      font-size:20px; font-weight:bold; margin:10px 0;">
-      </p>
-    </div>
-
-    <div style="display:flex; flex-direction:column; 
-    gap:15px;">
-      
-      <button onclick="confirmerPaiement('MTN')" 
-      style="background:#ffcc00; color:#000; 
-      border:none; padding:20px; border-radius:12px; 
-      font-size:16px; cursor:pointer; width:100%;
-      font-weight:bold;">
-       MTN Mobile Money<br>
-      <span style="font-size:13px; font-weight:normal;">
-      +229 0152353448 — ATCHOU Olivier</span>
-      </button>
-
-      <button onclick="confirmerPaiement('Moov')" 
-      style="background:#0066cc; color:white; 
-      border:none; padding:20px; border-radius:12px; 
-      font-size:16px; cursor:pointer; width:100%;
-      font-weight:bold;">
-       Moov Money<br>
-      <span style="font-size:13px; font-weight:normal;">
-      +229 0158040055 — ATCHOU Olivier</span>
-      </button>
-
-      <button onclick="confirmerPaiement('Celtiis')" 
-      style="background:#00aa44; color:white; 
-      border:none; padding:20px; border-radius:12px; 
-      font-size:16px; cursor:pointer; width:100%;
-      font-weight:bold;">
-       Celtiis Cash<br>
-      <span style="font-size:13px; font-weight:normal;">
-      +229 0192916652 — ATCHOU Olivier</span>
-      </button>
-
-    </div>
-
-    <button onclick="fermerPaiement()" 
-    style="background:#333; color:#aaa; 
-    border:1px solid #333; padding:12px; 
-    border-radius:8px; font-size:14px; 
-    cursor:pointer; width:100%; margin-top:15px;">
-    ← Retour
-    </button>
-
   </div>
-</div>
-<div class="carte" id="carte-Lundi">
-  <h3> Lundi</h3>
-  <ul id="listeLundi"></ul>
-</div>
 
-<div class="carte" id="carte-Mardi">
-  <h3> Mardi</h3>
-  <ul id="listeMardi"></ul>
-</div>
-
-<div class="carte" id="carte-Mercredi">
-  <h3> Mercredi</h3>
-  <ul id="listeMercredi"></ul>
-</div>
-
-<div class="carte" id="carte-Jeudi">
-  <h3> Jeudi</h3>
-  <ul id="listeJeudi"></ul>
-</div>
-
-<div class="carte" id="carte-Vendredi">
-  <h3> Vendredi</h3>
-  <ul id="listeVendredi"></ul>
-</div>
-
-<div class="carte" id="carte-Samedi">
-  <h3> Samedi</h3>
-  <ul id="listeSamedi"></ul>
-</div>
-
-<div class="carte" id="carte-Dimanche">
-  <h3> Dimanche</h3>
-  <ul id="listeDimanche"></ul>
-</div>
-
-<footer>
-  <p class="footer-titre">🌐 Mustchrist Agenda Planning</p>
-  <p class="footer-copy">© 2026 Mustchrist — Tous droits réservés</p>
-  <div class="footer-liens">
-    <a href="https://mustchrist.wordpress.com" target="_blank">🌍 Blog</a>
-    <a href="https://wa.me/2290152353448" target="_blank">💬 WhatsApp</a>
-    <a href="https://www.facebook.com/profile.php?id=61581609661282" target="_blank">📘 Facebook</a>
-    <a href="https://www.tiktok.com/@mustcmjrxnx" target="_blank">🎵 TikTok</a>
+  <div id="page-createur" class="sous-page" style="display:none;">
+    <div class="container">
+      <button class="btn-retour" onclick="retourPlanning()">Retour</button>
+      <div class="createur-carte">
+        <div class="createur-avatar">OA</div>
+        <h2>ATCHOU Olivier</h2>
+        <p class="createur-titre">Créateur et Concepteur de MC-Planning</p>
+        <div class="createur-section">
+          <h3>Qui suis-je ?</h3>
+          <p>Je suis ATCHOU Olivier, électricien bâtiment passionné par la technologie et la création de contenu. Ma vision est de créer des solutions numériques utiles et accessibles à tous.</p>
+        </div>
+        <div class="createur-section">
+          <h3>Mes services</h3>
+          <p>- Électricien bâtiment</p>
+          <p>- Installation énergie photovoltaïque</p>
+          <p>- Installation antenne parabolique</p>
+          <p>- Création d'affiches personnalisées</p>
+          <p>- Montage video et publicités</p>
+          <p>- Création de sites web</p>
+          <p>- Live streaming</p>
+        </div>
+        <div class="createur-section">
+          <h3>Me contacter</h3>
+          <a href="https://wa.me/2290152353448" target="_blank" class="contact-btn whatsapp-btn">WhatsApp : +229 0152353448</a>
+          <a href="https://mustchrist.wordpress.com" target="_blank" class="contact-btn blog-btn">Blog : mustchrist.wordpress.com</a>
+          <a href="https://www.facebook.com/profile.php?id=61581609661282" target="_blank" class="contact-btn facebook-btn">Facebook : Olivier ATCHOU</a>
+          <a href="https://www.tiktok.com/@mustcmjrxnx" target="_blank" class="contact-btn tiktok-btn">TikTok : MUSTCHRIST</a>
+        </div>
+      </div>
+    </div>
   </div>
-</footer>
 
-<script src="script.js"></script>
+  <footer>
+    <p>MC-Planning — Mustchrist 2026</p>
+    <a href="https://mustchrist.wordpress.com" target="_blank">mustchrist.wordpress.com</a>
+  </footer>
+
+</div>
+
+<div id="alarme-overlay" style="display:none;"></div>
+
+<script type="module" src="script.js"></script>
 </body>
-  </html>
+        </html>
