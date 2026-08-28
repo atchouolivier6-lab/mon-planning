@@ -797,3 +797,34 @@ footer a {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1100px;
+  }
+
+  .jours-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .auth-container {
+    max-width: 480px;
+  }
+
+  .menu-lateral {
+    width: 300px;
+  }
+
+  .ajout-champs input[type="text"] {
+    flex: 4;
+  }
+
+  .header-content h1 {
+    font-size: 22px;
+  }
+
+  .apropos-carte,
+  .createur-carte {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+      }
